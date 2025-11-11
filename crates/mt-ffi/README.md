@@ -14,19 +14,19 @@ Goals:
 
 Key concepts:
 
-- `mt_engine_handle` — opaque handle wrapping a single `Engine` instance.
+- `mt-engine_handle` — opaque handle wrapping a single `Engine` instance.
 - Functions to:
   - create / destroy engine,
   - push audio (f32 interleaved),
   - push MIDI events,
   - query analyzed events into caller-provided buffers.
 - Data types:
-  - `mt_chord_event`
-  - `mt_key_event`
-  - `mt_segment_event`
-  - `mt_note_event`
-  - `mt_midi_event`
-  - `mt_ffi_status`
+  - `mt-chord_event`
+  - `mt-key_event`
+  - `mt-segment_event`
+  - `mt-note_event`
+  - `mt-midi_event`
+  - `mt-ffi_status`
 
 All types are `#[repr(C)]`, POD, and safe to use across language boundaries.
 

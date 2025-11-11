@@ -1,6 +1,6 @@
-//! mt_alloc
+//! mt-alloc
 //!
-//! Heap-based primitives built on `mt_core`:
+//! Heap-based primitives built on `mt-core`:
 //! - Tempo map over `TempoEvent` / `MeterEvent` / `SwingEvent`.
 //! - MIDI normalizer → `NoteEvent`s.
 //! - NoteStore for efficient queries.

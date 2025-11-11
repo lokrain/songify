@@ -11,13 +11,13 @@ use mt_core::{
     time::SampleTime,
 };
 
-pub use crate::version::MT_ABI_VERSION;
+pub use crate::version::mt-ABI_VERSION;
 
 /// Opaque handle to an engine instance (owned by Rust).
 ///
 /// In C:
 /// ```c
-/// typedef struct mt_engine_handle mt_engine_handle;
+/// typedef struct mt-engine_handle mt-engine_handle;
 /// ```
 #[repr(C)]
 pub struct MtEngineHandle {

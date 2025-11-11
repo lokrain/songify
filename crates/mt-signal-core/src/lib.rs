@@ -31,15 +31,8 @@
 #[cfg(feature = "std")]
 extern crate std;
 
-pub mod traits;
-pub mod sample;
 pub mod frame;
-pub mod window;
+pub mod sample;
 pub mod spectrum;
-
-pub use crate::{
-    frame::{Frame, MonoFrame, StereoFrame},
-    sample::{as_f32_slice, Sample},
-    spectrum::{Complex32, SpectrumView},
-    window::{fill_window, window_value, WindowKind},
-};
+pub mod traits;
+pub mod window;

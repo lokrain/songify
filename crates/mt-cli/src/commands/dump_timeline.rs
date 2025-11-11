@@ -7,9 +7,9 @@ use std::path::PathBuf;
 use anyhow::{Context, Result};
 use clap::Args;
 
-use mt_core::time::SampleTime;
-use mt_engine::api::analyze_offline;
-use mt_engine::types::{AnalyzeRequest, EngineEvent};
+use mt-core::time::SampleTime;
+use mt-engine::api::analyze_offline;
+use mt-engine::types::{AnalyzeRequest, EngineEvent};
 
 #[derive(Debug, Args)]
 pub struct DumpTimelineArgs {
@@ -45,14 +45,14 @@ pub fn run(args: DumpTimelineArgs) -> Result<()> {
             EngineEvent::Tempo(e) => {
                 println!(
                     "[{}] tempo={} bpm",
-                    fmt_smp(e.position),
+                    fmt-smp(e.position),
                     e.bpm_x1000 as f64 / 1000.0
                 );
             }
             EngineEvent::Meter(e) => {
                 println!(
                     "[{}] meter={}/{}",
-                    fmt_smp(e.position),
+                    fmt-smp(e.position),
                     e.numerator,
                     e.denominator
                 );
@@ -60,14 +60,14 @@ pub fn run(args: DumpTimelineArgs) -> Result<()> {
             EngineEvent::Swing(e) => {
                 println!(
                     "[{}] swing={:.3}",
-                    fmt_smp(e.position),
+                    fmt-smp(e.position),
                     e.ratio_x1000 as f64 / 1000.0
                 );
             }
             EngineEvent::Note(n) => {
                 println!(
                     "[{}] note id={} track={} midi={} vel={}",
-                    fmt_smp(n.onset),
+                    fmt-smp(n.onset),
                     n.id.0,
                     n.track.0,
                     n.note.value(),
@@ -77,8 +77,8 @@ pub fn run(args: DumpTimelineArgs) -> Result<()> {
             EngineEvent::Chord(c) => {
                 println!(
                     "[{}-{}] chord={} conf={:.3}",
-                    fmt_smp(c.onset),
-                    fmt_smp(c.offset),
+                    fmt-smp(c.onset),
+                    fmt-smp(c.offset),
                     c.chord,
                     c.confidence_x1000 as f64 / 1000.0
                 );
@@ -86,7 +86,7 @@ pub fn run(args: DumpTimelineArgs) -> Result<()> {
             EngineEvent::Key(k) => {
                 println!(
                     "[{}] key={} conf={:.3}",
-                    fmt_smp(k.position),
+                    fmt-smp(k.position),
                     k.key,
                     k.confidence_x1000 as f64 / 1000.0
                 );
@@ -94,8 +94,8 @@ pub fn run(args: DumpTimelineArgs) -> Result<()> {
             EngineEvent::Segment(s) => {
                 println!(
                     "[{}-{}] segment={:?} conf={:.3}",
-                    fmt_smp(s.onset),
-                    fmt_smp(s.offset),
+                    fmt-smp(s.onset),
+                    fmt-smp(s.offset),
                     s.kind,
                     s.confidence_x1000 as f64 / 1000.0
                 );
@@ -106,6 +106,6 @@ pub fn run(args: DumpTimelineArgs) -> Result<()> {
     Ok(())
 }
 
-fn fmt_smp(t: SampleTime) -> String {
+fn fmt-smp(t: SampleTime) -> String {
     t.value().to_string()
 }

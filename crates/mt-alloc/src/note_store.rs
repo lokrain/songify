@@ -19,10 +19,7 @@ impl NoteStore {
 
     /// Insert a note keeping onset ordering.
     pub fn insert(&mut self, note: NoteEvent) {
-        let idx = self
-            .notes
-            .binary_search_by_key(&note.onset, |n| n.onset)
-            .unwrap_or_else(|i| i);
+        let idx = self.notes.binary_search_by_key(&note.onset, |n| n.onset).unwrap_or_else(|i| i);
         self.notes.insert(idx, note);
     }
 
@@ -54,13 +51,9 @@ impl NoteStore {
     /// Query notes whose onset is in [start, end).
     pub fn notes_in_range(&self, start: SampleTime, end: SampleTime) -> &[NoteEvent] {
         // Lower bound on start.
-        let from = self
-            .notes
-            .partition_point(|n| n.onset < start);
+        let from = self.notes.partition_point(|n| n.onset < start);
         // First index where onset >= end.
-        let to = self
-            .notes
-            .partition_point(|n| n.onset < end);
+        let to = self.notes.partition_point(|n| n.onset < end);
         &self.notes[from..to]
     }
 

@@ -1,4 +1,4 @@
-use crate::sample::Sample;
+use crate::traits::Sample;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Frame<S: Sample, const N: usize> {
@@ -11,9 +11,7 @@ impl<S: Sample, const N: usize> Frame<S, N> {
     }
 
     pub fn zero() -> Self {
-        Self {
-            channels: [S::zero(); N],
-        }
+        Self { channels: [S::zero(); N] }
     }
 
     pub const fn channels(&self) -> usize {

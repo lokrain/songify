@@ -3,16 +3,16 @@
 ## ABI surface
 
 - [ ] Finalise C header generation (cbindgen or hand-written) with correct typedefs and version guards.
-- [ ] Ensure all exported functions use stable `mt_ffi_status` codes and document the mapping.
+- [ ] Ensure all exported functions use stable `mt-ffi_status` codes and document the mapping.
 - [ ] Add functions for batch event draining (avoid per-event calls across FFI boundary).
-- [ ] Provide `mt_engine_config_from_file` to let hosts load pipeline configs without reimplementing parsing.
+- [ ] Provide `mt-engine_config_from_file` to let hosts load pipeline configs without reimplementing parsing.
 
 ## Engine handle & lifecycle
 
 - [ ] Update `EngineHandle` to use the new mt-engine offline API (AnalyzeRequest/Response instead of Engine::new).
 - [ ] Implement deterministic teardown that flushes outstanding events before drop.
 - [ ] Add thread-safe reference counting (Arc) for scenarios where host shares handle across threads.
-- [ ] Offer explicit `mt_engine_reset` to clear internal buffers without reallocating.
+- [ ] Offer explicit `mt-engine_reset` to clear internal buffers without reallocating.
 
 ## Safety & validation
 

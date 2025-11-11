@@ -5,14 +5,13 @@
 //! for synchronous, batch-style analysis.
 
 use crate::config::{
-    AnalysisConfig, AudioNoteConfig, ChordConfig, KeyConfig, MidiNoteConfig, SegmentConfig,
+    AudioNoteConfig, ChordConfig, KeyConfig, MidiNoteConfig, SegmentConfig,
     SwingConfig, TempoConfig,
 };
 use mt_core::events::{
     ChordEvent, KeyEvent, NoteEvent, SegmentEvent, TempoEvent,
 };
 use mt_core::midi::MidiEvent;
-use mt_core::time::SampleTime;
 
 /// Simple tempo range definition used by tempo detectors.
 #[derive(Clone, Copy, Debug)]
@@ -49,7 +48,8 @@ mod heapless_vec {
             // Callers must push before read.
             Self {
                 len: 0,
-                data: [unsafe { core::mem::MaybeUninit::zeroed().assume_init() }; N],
+                data:
+                    
             }
         }
 
@@ -84,108 +84,11 @@ mod heapless_vec {
 // This comment stands as clarification: no hidden unsafe in final traits.
 
 /// Detects normalized notes from MIDI events.
-pub trait MidiNoteAnalyzer {
-    fn detect_midi_notes(
-        &self,
-        events: &[MidiEvent],
-        cfg: &MidiNoteConfig,
-    ) -> alloc::vec::Vec<NoteEvent>;
-}
-
-/// Detects notes from audio samples (monophonic/simple polyphonic).
-pub trait AudioNoteAnalyzer {
-    fn detect_audio_notes(
-        &self,
-        samples: &[f32],
-        sample_rate: u32,
-        cfg: &AudioNoteConfig,
-    ) -> alloc::vec::Vec<NoteEvent>;
-}
-
-/// Detects global or local tempo (and optionally meter).
-pub trait TempoMeterAnalyzer {
-    fn detect_tempo(
-        &self,
-        samples: &[f32],
-        sample_rate: u32,
-        cfg: &TempoConfig,
-    ) -> alloc::vec::Vec<TempoEvent>;
-}
-
-/// Estimates musical key over time.
-pub trait KeyAnalyzer {
-    fn detect_keys(
-        &self,
-        notes: &[NoteEvent],
-        cfg: &KeyConfig,
-    ) -> alloc::vec::Vec<KeyEvent>;
-}
-
-/// Estimates chord sequence over time.
-pub trait ChordAnalyzer {
-    fn detect_chords(
-        &self,
-        notes: &[NoteEvent],
-        cfg: &ChordConfig,
-    ) -> alloc::vec::Vec<ChordEvent>;
-}
-
-/// Estimates swing feel.
-pub trait SwingAnalyzer {
-    fn detect_swing_ratio(
-        &self,
-        notes: &[NoteEvent],
-        tempo_events: &[TempoEvent],
-        cfg: &SwingConfig,
-    ) -> Option<f32>; // swing ratio, e.g. 0.5 straight, ~0.66 swing
-}
-
-/// Segments structure.
-pub trait SegmentAnalyzer {
-    fn detect_segments(
-        &self,
-        samples: &[f32],
-        sample_rate: u32,
-        chords: &[ChordEvent],
-        cfg: &SegmentConfig,
-    ) -> alloc::vec::Vec<SegmentEvent>;
-}
-
-/// Composite entry point used by engine.
-pub trait AnalysisSuite:
-    MidiNoteAnalyzer
-    + AudioNoteAnalyzer
-    + TempoMeterAnalyzer
-    + KeyAnalyzer
-    + ChordAnalyzer
-    + SwingAnalyzer
-    + SegmentAnalyzer
-{
-}
-
-impl<T> AnalysisSuite for T where
-    T: MidiNoteAnalyzer
-        + AudioNoteAnalyzer
-        + TempoMeterAnalyzer
-        + KeyAnalyzer
-        + ChordAnalyzer
-        + SwingAnalyzer
-        + SegmentAnalyzer
-{
-}
 
 
-#[cfg(any(not(feature = "std"), feature = "alloc"))]
 extern crate alloc;
 
 use alloc::vec::Vec;
-
-use crate::config::{
-    AudioNoteConfig, ChordConfig, KeyConfig, MidiNoteConfig, SegmentConfig, SwingConfig,
-    TempoConfig,
-};
-use mt_core::events::{ChordEvent, KeyEvent, NoteEvent, SegmentEvent, TempoEvent};
-use mt_core::midi::MidiEvent;
 
 /// Detects normalized notes from MIDI events.
 pub trait MidiNoteAnalyzer {

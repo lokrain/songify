@@ -517,7 +517,7 @@ FFI error codes, no panics across boundary.
 **`src/types.rs`**
 C-compatible structs:
 
-* `mt_chord_event`, `mt_key_event`, etc.
+* `mt-chord_event`, `mt-key_event`, etc.
   Only POD and fixed-size types.
 
 **`src/engine_handle.rs`**

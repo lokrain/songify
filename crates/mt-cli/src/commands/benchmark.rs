@@ -8,8 +8,8 @@ use std::time::Instant;
 use anyhow::{Context, Result};
 use clap::Args;
 
-use mt_engine::api::analyze_offline;
-use mt_engine::types::AnalyzeRequest;
+use mt-engine::api::analyze_offline;
+use mt-engine::types::AnalyzeRequest;
 
 #[derive(Debug, Args)]
 pub struct BenchmarkArgs {

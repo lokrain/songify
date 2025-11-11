@@ -4,3 +4,5 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+mt-core = { path = "../mt-core" }
+mt-engine = { path = "../mt-engine" }

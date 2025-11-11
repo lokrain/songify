@@ -10,8 +10,8 @@ use clap::Args;
 use serde::Deserialize;
 use serde_json::Value;
 
-use mt_engine::api::{analyze_offline, validate_offline};
-use mt_engine::types::{AnalyzeRequest, EngineEvent};
+use mt-engine::api::{analyze_offline, validate_offline};
+use mt-engine::types::{AnalyzeRequest, EngineEvent};
 
 #[derive(Debug, Args)]
 pub struct ValidateArgs {
@@ -106,8 +106,8 @@ fn run_golden_suite(dir: &Path, pipeline_config: Option<&PathBuf>) -> Result<()>
     Ok(())
 }
 
-fn encode_events_to_value(resp: &mt_engine::types::AnalyzeResponse) -> Result<Value> {
-    use mt_engine::types::EngineEvent;
+fn encode_events_to_value(resp: &mt-engine::types::AnalyzeResponse) -> Result<Value> {
+    use mt-engine::types::EngineEvent;
 
     let mut out = Vec::with_capacity(resp.events.len());
 

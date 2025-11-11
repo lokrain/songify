@@ -1,0 +1,9 @@
+[target."cfg(all())"]
+rustflags = ["-Ctarget-cpu=native", "-Cpanic=abort"]
+
+[env]
+RUST_BACKTRACE = { value = "1", force = true }
+RUSTFLAGS = { value = "", force = false }      # allow local override
+
+[build]
+incremental = true

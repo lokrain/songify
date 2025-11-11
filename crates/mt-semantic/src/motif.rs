@@ -9,7 +9,6 @@
 use alloc::vec::Vec;
 
 use mt_core::events::NoteEvent;
-use mt_core::pitch::MidiNote;
 
 /// Canonical motif pattern: sequence of semitone intervals.
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
@@ -59,11 +58,7 @@ pub struct MotifConfig {
 impl MotifConfig {
     #[must_use]
     pub const fn default_strict() -> Self {
-        Self {
-            min_len: 3,
-            max_len: 8,
-            min_occurrences: 2,
-        }
+        Self { min_len: 3, max_len: 8, min_occurrences: 2 }
     }
 }
 
@@ -97,7 +92,7 @@ pub fn discover_motifs(notes: &[NoteEvent], cfg: MotifConfig) -> Vec<Motif> {
 
     // To avoid duplicates:
     // store seen patterns as Vec<i8> in motifs already.
-    'len_loop: for len in cfg.min_len..=cfg.max_len {
+    for len in cfg.min_len..=cfg.max_len {
         if len > n {
             break;
         }
@@ -115,19 +110,18 @@ pub fn discover_motifs(notes: &[NoteEvent], cfg: MotifConfig) -> Vec<Motif> {
             let mut i = start;
             while i + len <= n {
                 if &intervals[i..i + len] == candidate {
-                    let inst = MotifInstance {
-                        start_index: i,
-                        end_index: i + len,
-                    };
+                    let inst = MotifInstance { start_index: i, end_index: i + len };
                     // Enforce non-overlap with last instance.
                     if instances
                         .last()
-                        .map(|last| inst.start_index > last.end_index)
+                        .map(|last: &MotifInstance| inst.start_index > last.end_index)
                         .unwrap_or(true)
                     {
                         instances.push(inst);
+                        i += len;
+                    } else {
+                        i += 1;
                     }
-                    i += len;
                 } else {
                     i += 1;
                 }
@@ -135,18 +129,11 @@ pub fn discover_motifs(notes: &[NoteEvent], cfg: MotifConfig) -> Vec<Motif> {
 
             if instances.len() >= cfg.min_occurrences {
                 motifs.push(Motif {
-                    pattern: MotifPattern {
-                        intervals: candidate.to_vec(),
-                    },
+                    pattern: MotifPattern { intervals: candidate.to_vec() },
                     instances,
                 });
             }
         }
-
-        // Optional early-exit heuristic:
-        // if no motifs found for current len and len > min_len,
-        // we still continue for determinism and completeness.
-        let _ = &len;
     }
 
     motifs

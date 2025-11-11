@@ -5,7 +5,12 @@
 #[cfg(any(not(feature = "std"), feature = "alloc"))]
 extern crate alloc;
 
-use alloc::collections::BTreeMap;
+use core::alloc;
+
+#[cfg(feature = "std")]
+use std::collections::BTreeMap;
+#[cfg(not(feature = "std"))]
+use core::collections::BTreeMap;
 use alloc::vec::Vec;
 
 use crate::config::MidiNoteConfig;

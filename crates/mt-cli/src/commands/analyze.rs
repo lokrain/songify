@@ -10,8 +10,8 @@ use anyhow::{Context, Result};
 use clap::Args;
 use serde::Serialize;
 
-use mt_engine::types::{AnalyzeRequest, AnalyzeResponse};
-use mt_engine::api::analyze_offline;
+use mt-engine::types::{AnalyzeRequest, AnalyzeResponse};
+use mt-engine::api::analyze_offline;
 
 #[derive(Debug, Args)]
 pub struct AnalyzeArgs {
@@ -67,7 +67,7 @@ pub fn run(args: AnalyzeArgs) -> Result<()> {
 }
 
 fn encode_response(resp: &AnalyzeResponse) -> Result<String> {
-    use mt_engine::types::EngineEvent;
+    use mt-engine::types::EngineEvent;
 
     let mut out = Vec::with_capacity(resp.events.len());
 

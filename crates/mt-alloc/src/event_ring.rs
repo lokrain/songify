@@ -18,12 +18,11 @@ pub struct EventRing<T> {
 impl<T> EventRing<T> {
     pub fn with_capacity(cap: usize) -> Self {
         assert!(cap > 0, "capacity must be > 0");
-        Self {
-            buf: vec![None; cap],
-            head: 0,
-            tail: 0,
-            len: 0,
+        let mut buf = Vec::with_capacity(cap);
+        for _ in 0..cap {
+            buf.push(None);
         }
+        Self { buf, head: 0, tail: 0, len: 0 }
     }
 
     #[must_use]

@@ -4,7 +4,6 @@
 //! - For true cross-thread lock-free behavior, implement in a separate crate
 //!   or relax `unsafe` constraints in a small, audited module.
 
-use alloc::vec::Vec;
 
 /// Bounded SPSC queue (logical contract).
 ///

@@ -66,8 +66,8 @@ pub fn compute_voice_leading(from: Chord, to: Chord) -> VoiceLeadingSummary {
         out
     }
 
-    let mut src = chord_pcs(from);
-    let mut dst = chord_pcs(to);
+    let src = chord_pcs(from);
+    let dst = chord_pcs(to);
     if src.is_empty() || dst.is_empty() {
         return VoiceLeadingSummary {
             moves: Vec::new(),

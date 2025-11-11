@@ -35,10 +35,7 @@ impl TempoMap {
     /// Insert a tempo event; must be added in non-decreasing time order.
     pub fn push_tempo(&mut self, ev: TempoEvent) {
         debug_assert!(
-            self.tempo_events
-                .last()
-                .map(|p| p.position <= ev.position)
-                .unwrap_or(true),
+            self.tempo_events.last().map(|p| p.position <= ev.position).unwrap_or(true),
             "tempo events must be sorted by position"
         );
         self.tempo_events.push(ev);
@@ -46,10 +43,7 @@ impl TempoMap {
 
     pub fn push_meter(&mut self, ev: MeterEvent) {
         debug_assert!(
-            self.meter_events
-                .last()
-                .map(|p| p.position <= ev.position)
-                .unwrap_or(true),
+            self.meter_events.last().map(|p| p.position <= ev.position).unwrap_or(true),
             "meter events must be sorted by position"
         );
         self.meter_events.push(ev);
@@ -57,10 +51,7 @@ impl TempoMap {
 
     pub fn push_swing(&mut self, ev: SwingEvent) {
         debug_assert!(
-            self.swing_events
-                .last()
-                .map(|p| p.position <= ev.position)
-                .unwrap_or(true),
+            self.swing_events.last().map(|p| p.position <= ev.position).unwrap_or(true),
             "swing events must be sorted by position"
         );
         self.swing_events.push(ev);

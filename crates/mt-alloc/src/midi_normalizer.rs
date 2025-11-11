@@ -9,7 +9,7 @@
 use alloc::vec::Vec;
 
 use mt_core::events::{NoteEvent, NoteId, TrackId};
-use mt_core::midi::{MidiChannel, MidiEvent, MidiEventKind};
+use mt_core::midi::{MidiEvent, MidiEventKind};
 use mt_core::pitch::MidiNote;
 use mt_core::time::SampleTime;
 
@@ -38,21 +38,13 @@ impl MidiNormalizer {
             i += 1;
         }
 
-        Self {
-            active: [[None; 128]; 16],
-            next_id: 1,
-            track_for_channel: tracks,
-        }
+        Self { active: [[None; 128]; 16], next_id: 1, track_for_channel: tracks }
     }
 
     /// Process a batch of MIDI events at a given time.
     ///
     /// Returns zero or more completed NoteEvents.
-    pub fn process(
-        &mut self,
-        time: SampleTime,
-        events: &[MidiEvent],
-    ) -> Vec<NoteEvent> {
+    pub fn process(&mut self, time: SampleTime, events: &[MidiEvent]) -> Vec<NoteEvent> {
         let mut out = Vec::new();
 
         for ev in events {
@@ -70,10 +62,7 @@ impl MidiNormalizer {
                             active.velocity,
                         ));
                     }
-                    self.active[ch][note] = Some(ActiveNote {
-                        onset: time,
-                        velocity: ev.data2,
-                    });
+                    self.active[ch][note] = Some(ActiveNote { onset: time, velocity: ev.data2 });
                 }
                 MidiEventKind::NoteOn | MidiEventKind::NoteOff => {
                     let note = ev.data1 as usize;

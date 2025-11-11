@@ -10,8 +10,8 @@ description = "Deterministic analysis pipeline engine for the Music Theory & Ana
 serde = ["dep:serde"]
 
 [dependencies]
-mt_core = { path = "../mt-core" }
-mt_alloc = { path = "../mt-alloc" }
-mt_analysis = { path = "../mt-analysis" }
+mt-core = { path = "../mt-core" }
+mt-alloc = { path = "../mt-alloc" }
+mt-analysis = { path = "../mt-analysis" }
 
 serde = { version = "1.0", features = ["derive"], optional = true }

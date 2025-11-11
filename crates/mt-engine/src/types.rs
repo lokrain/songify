@@ -7,10 +7,10 @@
 
 use std::fmt;
 
-use mt_core::events::{
+use mt-core::events::{
     ChordEvent, KeyEvent, MeterEvent, NoteEvent, SegmentEvent, SwingEvent, TempoEvent,
 };
-use mt_core::midi::MidiEvent;
+use mt-core::midi::MidiEvent;
 
 /// Version of the engine core.
 ///

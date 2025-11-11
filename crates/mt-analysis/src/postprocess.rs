@@ -1,18 +1,10 @@
 //! Generic post-processing helpers (smoothing, pruning).
 
-#[cfg(any(not(feature = "std"), feature = "alloc"))]
-extern crate alloc;
-
-use alloc::vec::Vec;
-
 use mt_core::events::{ChordEvent, KeyEvent, SegmentEvent};
 
 /// Remove segments shorter than `min_len` samples.
 pub fn prune_short_segments(segments: Vec<SegmentEvent>, min_len: i64) -> Vec<SegmentEvent> {
-    segments
-        .into_iter()
-        .filter(|s| (s.offset.value() - s.onset.value()) >= min_len)
-        .collect()
+    segments.into_iter().filter(|s| (s.offset.value() - s.onset.value()) >= min_len).collect()
 }
 
 /// Merge consecutive identical keys.

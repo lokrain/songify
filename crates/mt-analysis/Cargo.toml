@@ -11,7 +11,7 @@ std = []
 serde = ["dep:serde"]
 
 [dependencies]
-mt_core = { path = "../mt-core" }
-mt_signal_core = { path = "../mt-signal-core" }
-mt_alloc = { path = "../mt-alloc" }
+mt-core = { path = "../mt-core" }
+mt-signal-core = { path = "../mt-signal-core" }
+mt-alloc = { path = "../mt-alloc" }
 serde = { version = "1.0.228", features = ["derive"], optional = true }

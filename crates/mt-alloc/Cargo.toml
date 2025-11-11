@@ -12,5 +12,5 @@ std = []
 serde = ["dep:serde"]
 
 [dependencies]
-mt_core = { path = "../mt-core" }
+mt-core = { path = "../mt-core" }
 serde = { version = "1.0", features = ["derive"], optional = true }

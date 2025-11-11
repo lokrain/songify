@@ -5,7 +5,7 @@
 //! - validate pointers and sizes,
 //! - catch panics via `catch_unwind`,
 //! - never unwind across FFI,
-//! - return `mt_ffi_status`.
+//! - return `mt-ffi_status`.
 
 use core::ffi::c_void;
 use core::slice;
@@ -20,7 +20,7 @@ use crate::types::{
     MtChordEvent, MtEngineHandle, MtKeyEvent, MtMidiEvent, MtNoteEvent, MtSegmentEvent,
 };
 
-/// Helper: wrap a closure and map panics to MT_FFI_ERROR_PANIC.
+/// Helper: wrap a closure and map panics to mt-FFI_ERROR_PANIC.
 fn guard<F>(f: F) -> MtFfiStatus
 where
     F: FnOnce() -> MtFfiStatus + std::panic::UnwindSafe,
@@ -32,7 +32,7 @@ where
 }
 
 #[no_mangle]
-pub extern "C" fn mt_engine_create_default(handle_out: *mut *mut MtEngineHandle) -> MtFfiStatus {
+pub extern "C" fn mt-engine_create_default(handle_out: *mut *mut MtEngineHandle) -> MtFfiStatus {
     guard(|| unsafe {
         if handle_out.is_null() {
             return MtFfiStatus::MtFfiErrorNull;
@@ -51,7 +51,7 @@ pub extern "C" fn mt_engine_create_default(handle_out: *mut *mut MtEngineHandle)
 }
 
 #[no_mangle]
-pub extern "C" fn mt_engine_destroy(handle: *mut MtEngineHandle) -> MtFfiStatus {
+pub extern "C" fn mt-engine_destroy(handle: *mut MtEngineHandle) -> MtFfiStatus {
     guard(|| unsafe {
         if handle.is_null() {
             return MtFfiStatus::MtFfiErrorNull;
@@ -69,7 +69,7 @@ pub extern "C" fn mt_engine_destroy(handle: *mut MtEngineHandle) -> MtFfiStatus 
 /// - `frames`: number of frames; total samples = frames * channels
 /// - `data`: pointer to interleaved samples
 #[no_mangle]
-pub extern "C" fn mt_engine_push_audio_f32_interleaved(
+pub extern "C" fn mt-engine_push_audio_f32_interleaved(
     handle: *mut MtEngineHandle,
     sample_rate: u32,
     channels: u16,
@@ -104,9 +104,9 @@ pub extern "C" fn mt_engine_push_audio_f32_interleaved(
 
 /// Push MIDI events into the engine.
 ///
-/// `events` points to `count` mt_midi_event structures.
+/// `events` points to `count` mt-midi_event structures.
 #[no_mangle]
-pub extern "C" fn mt_engine_push_midi(
+pub extern "C" fn mt-engine_push_midi(
     handle: *mut MtEngineHandle,
     events: *const MtMidiEvent,
     count: u32,
@@ -144,7 +144,7 @@ pub extern "C" fn mt_engine_push_midi(
 ///
 /// Writes at most `buffer_len` entries and sets `out_len` to the number written.
 #[no_mangle]
-pub extern "C" fn mt_engine_get_note_events(
+pub extern "C" fn mt-engine_get_note_events(
     handle: *mut MtEngineHandle,
     buffer: *mut MtNoteEvent,
     buffer_len: u32,
@@ -180,7 +180,7 @@ pub extern "C" fn mt_engine_get_note_events(
 
 /// Chord events.
 #[no_mangle]
-pub extern "C" fn mt_engine_get_chord_events(
+pub extern "C" fn mt-engine_get_chord_events(
     handle: *mut MtEngineHandle,
     buffer: *mut MtChordEvent,
     buffer_len: u32,
@@ -216,7 +216,7 @@ pub extern "C" fn mt_engine_get_chord_events(
 
 /// Key events.
 #[no_mangle]
-pub extern "C" fn mt_engine_get_key_events(
+pub extern "C" fn mt-engine_get_key_events(
     handle: *mut MtEngineHandle,
     buffer: *mut MtKeyEvent,
     buffer_len: u32,
@@ -252,7 +252,7 @@ pub extern "C" fn mt_engine_get_key_events(
 
 /// Segment events.
 #[no_mangle]
-pub extern "C" fn mt_engine_get_segment_events(
+pub extern "C" fn mt-engine_get_segment_events(
     handle: *mut MtEngineHandle,
     buffer: *mut MtSegmentEvent,
     buffer_len: u32,

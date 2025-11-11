@@ -12,7 +12,7 @@
 //! - No I/O, no logging, no randomness.
 //! - All policies are explicit and testable.
 
-#![cfg_attr(not(feature = "std"), no_std)]
+#![no_std]
 #![forbid(unsafe_code)]
 #![deny(clippy::all, clippy::pedantic)]
 #![allow(

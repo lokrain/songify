@@ -3,19 +3,17 @@
 //! Strategy:
 //! - Partition timeline into fixed hops.
 //! - For each slice, collect active pitch-classes (duration-weighted).
-//! - Match against known chord templates (from mt_core::chord_kind).
+//! - Match against known chord templates (from mt-core::chord_kind).
 //! - Emit ChordEvents with confidence based on template fit.
 
-#[cfg(any(not(feature = "std"), feature = "alloc"))]
+#[cfg(not(feature = "std"))]
 extern crate alloc;
 
-use alloc::vec::Vec;
-
-use crate::config::ChordConfig;
 use crate::confidence::clamp01_to_confidence_x1000;
+use crate::config::ChordConfig;
 use crate::traits::ChordAnalyzer;
 use mt_core::chord::Chord;
-use mt_core::chord_kind::{chord_intervals, ChordKindId, CHORD_KINDS};
+use mt_core::chord_kind::{CHORD_KINDS, ChordKindId, chord_intervals};
 use mt_core::events::{ChordEvent, NoteEvent};
 use mt_core::pitch::PitchClass;
 use mt_core::time::SampleTime;
@@ -69,12 +67,7 @@ impl ChordAnalyzer for RuleBasedChordAnalyzer {
             if score >= cfg.min_confidence {
                 let onset = SampleTime::new(w_start);
                 let offset = SampleTime::new(w_end);
-                out.push(ChordEvent {
-                    chord: best_chord,
-                    onset,
-                    offset,
-                    confidence_x1000: conf,
-                });
+                out.push(ChordEvent { chord: best_chord, onset, offset, confidence_x1000: conf });
             }
 
             t += hop;
@@ -101,9 +94,8 @@ fn best_chord_match(pc_weights: &[f32; 12]) -> (Chord, f32) {
                 }
                 total += weight;
                 let pc_class = PitchClass::new(pc as u8).unwrap();
-                let is_tone = chord_intervals(kind.id)
-                    .iter()
-                    .any(|iv| root.transpose(*iv as i8) == pc_class);
+                let is_tone =
+                    chord_intervals(kind.id).iter().any(|iv| root.transpose(*iv as i8) == pc_class);
                 if is_tone {
                     chord_sum += weight;
                 }

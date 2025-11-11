@@ -7,7 +7,7 @@
 //! - Host pushes audio and MIDI into the engine.
 //! - Host pulls analyzed events into caller-owned buffers.
 //! - No panics cross FFI; all calls wrapped in `catch_unwind`.
-//! - All functions return `mt_ffi_status` for predictable error handling.
+//! - All functions return `mt-ffi_status` for predictable error handling.
 //!
 //! This crate defines the ABI contract for mt-engine.
 
@@ -30,6 +30,6 @@ pub use crate::{
     error::MtFfiStatus,
     types::{
         MtChordEvent, MtKeyEvent, MtMidiEvent, MtNoteEvent, MtSegmentEvent,
-        MT_ABI_VERSION,
+        mt-ABI_VERSION,
     },
 };

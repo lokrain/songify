@@ -7,10 +7,10 @@ use alloc::vec::Vec;
 
 use crate::config::KeyConfig;
 use crate::traits::KeyAnalyzer;
-use mt_core::events::{KeyEvent, NoteEvent};
-use mt_core::key::{Key, KeyMode};
-use mt_core::pitch::PitchClass;
-use mt_core::time::SampleTime;
+use mt-core::events::{KeyEvent, NoteEvent};
+use mt-core::key::{Key, KeyMode};
+use mt-core::pitch::PitchClass;
+use mt-core::time::SampleTime;
 
 pub struct HistogramKeyAnalyzer;
 
