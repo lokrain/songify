@@ -1,0 +1,16 @@
+[package]
+name = "mt-signal-core"
+version = "0.1.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+description = "Low-level signal primitives for the Music Theory & Analytics engine."
+
+[features]
+# Enable std-only niceties (e.g. Debug helpers via std, potential integrations).
+default = ["std"]
+std = []
+serde = ["dep:serde"]
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"], optional = true }
+mt_core = { path = "../mt-core", default-features = false }

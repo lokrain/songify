@@ -1,0 +1,16 @@
+[package]
+name = "mt-alloc"
+version = "0.1.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+description = "Heap-based temporal structures and queues for the Music Theory & Analytics engine."
+
+[features]
+# Use std where available. When disabled, works with `alloc` only.
+default = ["std"]
+std = []
+serde = ["dep:serde"]
+
+[dependencies]
+mt_core = { path = "../mt-core" }
+serde = { version = "1.0", features = ["derive"], optional = true }

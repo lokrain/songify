@@ -1,0 +1,17 @@
+[package]
+name = "mt-core"
+version = "0.1.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+description = "Semantic kernel for music theory and timeline primitives."
+
+[features]
+# By default we allow std for tests and integration in std binaries.
+default = ["std"]
+# std is never required for core semantics; it only enables std::error::Error impls, etc.
+std = []
+# Optional serialization of value types. Kept orthogonal to semantics.
+serde = ["dep:serde"]
+
+[dependencies]
+serde = { version = "1.0.228", features = ["derive"], optional = true }

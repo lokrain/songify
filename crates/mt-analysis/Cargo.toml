@@ -1,0 +1,17 @@
+[package]
+name = "mt-analysis"
+version = "0.1.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+description = "Deterministic analysis primitives for the Music Theory & Analytics engine."
+
+[features]
+default = ["std"]
+std = []
+serde = ["dep:serde"]
+
+[dependencies]
+mt_core = { path = "../mt-core" }
+mt_signal_core = { path = "../mt-signal-core" }
+mt_alloc = { path = "../mt-alloc" }
+serde = { version = "1.0.228", features = ["derive"], optional = true }

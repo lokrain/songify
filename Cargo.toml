@@ -1,0 +1,3 @@
+[workspace]
+members = ["crates/mt-alloc","crates/mt-analysis","crates/mt-cli","crates/mt-core", "crates/mt-engine", "crates/mt-ffi", "crates/mt-semantic", "crates/mt-signal-core"]
+resolver = "3"

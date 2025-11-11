@@ -1,0 +1,17 @@
+[package]
+name = "mt-engine"
+version = "0.1.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+description = "Deterministic analysis pipeline engine for the Music Theory & Analytics workspace."
+
+[features]
+# Enables serde on config and types for external pipeline definitions.
+serde = ["dep:serde"]
+
+[dependencies]
+mt_core = { path = "../mt-core" }
+mt_alloc = { path = "../mt-alloc" }
+mt_analysis = { path = "../mt-analysis" }
+
+serde = { version = "1.0", features = ["derive"], optional = true }
