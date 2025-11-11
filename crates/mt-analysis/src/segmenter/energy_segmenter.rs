@@ -1,7 +1,5 @@
 //! Energy-based segmentation.
 
-#[cfg(any(not(feature = "std"), feature = "alloc"))]
-extern crate alloc;
 
 extern crate alloc;
 use alloc::vec::Vec;

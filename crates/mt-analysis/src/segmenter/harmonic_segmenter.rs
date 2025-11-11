@@ -1,9 +1,5 @@
 //! Harmonic-change-based refinement for segments.
 
-#[cfg(any(not(feature = "std"), feature = "alloc"))]
-extern crate alloc;
-
-use alloc::vec::Vec;
 
 use crate::config::SegmentConfig;
 use crate::traits::SegmentAnalyzer;

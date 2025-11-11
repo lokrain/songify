@@ -2,16 +2,11 @@
 //!
 //! Deterministic, order-stable pairing of note-on/off into NoteEvent.
 
-#[cfg(any(not(feature = "std"), feature = "alloc"))]
-extern crate alloc;
-
-use core::alloc;
-
-#[cfg(feature = "std")]
-use std::collections::BTreeMap;
+    
 #[cfg(not(feature = "std"))]
 use core::collections::BTreeMap;
-use alloc::vec::Vec;
+#[cfg(feature = "std")]
+use std::collections::BTreeMap;
 
 use crate::config::MidiNoteConfig;
 use crate::traits::MidiNoteAnalyzer;

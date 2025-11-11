@@ -19,16 +19,12 @@ impl EngineHandle {
     pub fn new_default() -> Result<Self, mt_engine::EngineError> {
         let cfg = EngineConfig::default();
         let engine = Engine::new(cfg)?;
-        Ok(Self {
-            engine: Mutex::new(engine),
-        })
+        Ok(Self { engine: Mutex::new(engine) })
     }
 
     pub fn new_with_config(cfg: EngineConfig) -> Result<Self, mt_engine::EngineError> {
         let engine = Engine::new(cfg)?;
-        Ok(Self {
-            engine: Mutex::new(engine),
-        })
+        Ok(Self { engine: Mutex::new(engine) })
     }
 }
 

@@ -41,15 +41,10 @@ mod heapless_vec {
     }
 
     impl<T: Copy, const N: usize> Vec<T, N> {
-        pub fn new() -> Self {
-            // This uses a dummy value logic; restricted to T: Copy.
-            // In this crate we only use it with Copy types.
-            // To avoid unsafe, we construct with a repeated default-ish value.
-            // Callers must push before read.
+        pub fn new() -> Self where T: Default {
             Self {
                 len: 0,
-                data:
-                    
+                data: [T::default(); N],
             }
         }
 
